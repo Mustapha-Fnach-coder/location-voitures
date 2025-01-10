@@ -1,0 +1,49 @@
+# Exclure les fichiers d'environnement sensibles
+.env
+.env.*
+
+# Ignorer les dossiers générés par Composer
+/vendor/
+
+# Ignorer les dossiers générés par Node.js
+/node_modules/
+
+# Ignorer les fichiers de configuration de package
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignorer les caches
+/.phpunit.result.cache
+/.php_cs.cache
+/storage/*.key
+
+# Ignorer les fichiers de session, cache et logs Laravel
+/storage/logs/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/framework/cache/*
+
+# Ignorer les fichiers de compilation React
+/public/hot
+/public/storage
+/public/mix-manifest.json
+/public/css/*
+/public/js/*
+/public/build/
+
+# Ignorer les fichiers de test et de couverture
+/coverage/
+
+# Ignorer les fichiers IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignorer les fichiers du système
+.DS_Store
+Thumbs.db
+*.swp
+*.lock
+*.lock-wscript
