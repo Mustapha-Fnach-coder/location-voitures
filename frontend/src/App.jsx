@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import CheckRole from './Middleware/CheckRole';
+// import CheckRole from './Middleware/CheckRole';
 import HomeClient from './Pages/Client/HomeClient';
 import Layout from './Pages/Client/Layout';
 
@@ -9,13 +9,13 @@ function App() {
     <Router>
       <Routes>
       <Route 
-        path="/home" 
+        path="/" 
         element={
-          <CheckRole >
+          // <CheckRole >
             <Layout>
               <HomeClient />
             </Layout>
-          </CheckRole>
+          // </CheckRole>
                     } 
                 />
       </Routes>
