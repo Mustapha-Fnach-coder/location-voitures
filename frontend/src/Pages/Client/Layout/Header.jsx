@@ -1,7 +1,14 @@
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom"; // Importation de Link
 
+
 const Header = () => {
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <Navbar
       fixed="top" // Barre de navigation fixe en haut
@@ -29,13 +36,10 @@ const Header = () => {
             <Link to="/voitures" className="nav-link text-dark">
               Voitures
             </Link>
-            <Link to="/about" className="nav-link text-dark">
-              À propos
-            </Link>
-            <Link to="/contact" className="nav-link text-dark">
+            <Link to="/ContactUs" className="nav-link text-dark">
               Contact
             </Link>
-            <Link to="/nous" className="nav-link text-dark">
+            <Link to="#" onClick={() => scrollToSection("about")}  to="/WhyUs" className="nav-link text-dark">
               Pour quoi nous
             </Link>
           </Nav>

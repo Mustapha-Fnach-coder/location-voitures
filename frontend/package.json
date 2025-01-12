@@ -14,11 +14,9 @@
     "bootstrap": "^5.3.3",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.7",
-<<<<<<< HEAD
-=======
     "react-datepicker": "^7.6.0",
->>>>>>> 93299900fd9450475a92b25f43675253fca548e5
     "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
     "react-router-dom": "^7.1.1"
   },
   "devDependencies": {

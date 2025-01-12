@@ -11,15 +11,5 @@ body, html {
     box-sizing: border-box; /* Inclut le padding dans la hauteur totale */
 }
 
-.footer {
-<<<<<<< HEAD
-    height: 80px; /* Hauteur du footer */
-    position: relative;
-=======
->>>>>>> 93299900fd9450475a92b25f43675253fca548e5
-    width: 100%;
-    bottom: 0;
-    background-color: #f8f9fa; /* Exemple de couleur pour le footer */
-    text-align: center;
-    padding: 20px;
-}
+
+
