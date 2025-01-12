@@ -1,23 +1,60 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import CheckRole from './Middleware/CheckRole';
+
+// Importation des composants de page
 import HomeClient from './Pages/Client/HomeClient';
-import Layout from './Pages/Client/Layout';
+// import About from './Pages/Client/About';   // Nouvelle page 'À propos'
+// import Contact from './Pages/Client/Contact'; // Nouvelle page 'Contact'
+// import Profile from './Pages/Client/Profile'; // Nouvelle page 'Profil'
+ import Layout from './Pages/Client/Layout';
+
+// Optionnel : Importer un middleware pour la gestion des rôles si nécessaire
+// import CheckRole from './Middleware/CheckRole';
 
 function App() {
   return (
     <Router>
       <Routes>
-      <Route 
-        path="/" 
-        element={
-          // <CheckRole >
+        <Route 
+          path="/" 
+          element={
+            // Si vous utilisez un middleware comme CheckRole, décommentez et utilisez-le
+            // <CheckRole> 
+              <Layout>
+                <HomeClient />
+              </Layout>
+            // </CheckRole>
+          } 
+        />
+        
+        {/* <Route 
+          path="/about" 
+          element={
             <Layout>
-              <HomeClient />
+              <About />
             </Layout>
-          // </CheckRole>
-                    } 
-                />
+          } 
+        />
+        
+        <Route 
+          path="/contact" 
+          element={
+            <Layout>
+              <Contact />
+            </Layout>
+          } 
+        />
+        
+        <Route 
+          path="/voitures" 
+          element={
+            <Layout>
+              <Voitures />
+            </Layout>
+          } 
+        />
+         */}
+       
       </Routes>
     </Router>
   );

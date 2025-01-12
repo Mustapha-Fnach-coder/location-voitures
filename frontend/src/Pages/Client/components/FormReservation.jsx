@@ -127,39 +127,45 @@ const ReservationForm = () => {
     >
       <Form onSubmit={handleSubmit} style={{ width: "100%" }}>
         <h3 className="text-center mb-4">Réservation</h3>
+        <hr className="bg-warning"/>
 
         <Row className="mb-3">
           <Col md={6}>
             <Form.Group controlId="dateDebut">
               <Form.Label>Date de début</Form.Label>
-              <Form.Control
+              <input
                 type="date"
                 name="dateDebut"
                 value={formData.dateDebut}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                required
                 isInvalid={!!errors.dateDebut}
-                min={new Date().toISOString().split("T")[0]}
+                min={new Date().toISOString().split("T")[0]} // Date limite : aujourd'hui
+                style={inputStyle}
               />
-              <Form.Control.Feedback type="invalid">
-                {errors.dateDebut}
-              </Form.Control.Feedback>
+              {errors.dateDebut && (
+                <div style={errorStyle}>{errors.dateDebut}</div>
+              )}
             </Form.Group>
           </Col>
           <Col md={6}>
             <Form.Group controlId="heureDebut">
               <Form.Label>Heure de début</Form.Label>
-              <Form.Control
+              <input
                 type="time"
                 name="heureDebut"
                 value={formData.heureDebut}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                required
                 isInvalid={!!errors.heureDebut}
+                step="900" // Intervalle de 15 minutes
+                style={inputStyle}
               />
-              <Form.Control.Feedback type="invalid">
-                {errors.heureDebut}
-              </Form.Control.Feedback>
+              {errors.heureDebut && (
+                <div style={errorStyle}>{errors.heureDebut}</div>
+              )}
             </Form.Group>
           </Col>
         </Row>
@@ -168,34 +174,39 @@ const ReservationForm = () => {
           <Col md={6}>
             <Form.Group controlId="dateFin">
               <Form.Label>Date de fin</Form.Label>
-              <Form.Control
+              <input
                 type="date"
                 name="dateFin"
                 value={formData.dateFin}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                required
                 isInvalid={!!errors.dateFin}
-                min={formData.dateDebut || new Date().toISOString().split("T")[0]}
+                min={formData.dateDebut || new Date().toISOString().split("T")[0]} // Date limite : après la date de début
+                style={inputStyle}
               />
-              <Form.Control.Feedback type="invalid">
-                {errors.dateFin}
-              </Form.Control.Feedback>
+              {errors.dateFin && (
+                <div style={errorStyle}>{errors.dateFin}</div>
+              )}
             </Form.Group>
           </Col>
           <Col md={6}>
             <Form.Group controlId="heureFin">
               <Form.Label>Heure de fin</Form.Label>
-              <Form.Control
+              <input
                 type="time"
                 name="heureFin"
                 value={formData.heureFin}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                required
                 isInvalid={!!errors.heureFin}
+                step="900" // Intervalle de 15 minutes
+                style={inputStyle}
               />
-              <Form.Control.Feedback type="invalid">
-                {errors.heureFin}
-              </Form.Control.Feedback>
+              {errors.heureFin && (
+                <div style={errorStyle}>{errors.heureFin}</div>
+              )}
             </Form.Group>
           </Col>
         </Row>
@@ -204,45 +215,71 @@ const ReservationForm = () => {
           <Col md={6}>
             <Form.Group controlId="lieuDepart">
               <Form.Label>Lieu de départ</Form.Label>
-              <Form.Control
+              <input
                 type="text"
                 name="lieuDepart"
                 value={formData.lieuDepart}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                required
                 isInvalid={!!errors.lieuDepart}
+                style={inputStyle}
               />
-              <Form.Control.Feedback type="invalid">
-                {errors.lieuDepart}
-              </Form.Control.Feedback>
+              {errors.lieuDepart && (
+                <div style={errorStyle}>{errors.lieuDepart}</div>
+              )}
             </Form.Group>
           </Col>
           <Col md={6}>
             <Form.Group controlId="lieuArrive">
               <Form.Label>Lieu d'arrivée</Form.Label>
-              <Form.Control
+              <input
                 type="text"
                 name="lieuArrive"
                 value={formData.lieuArrive}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                required
                 isInvalid={!!errors.lieuArrive}
+                style={inputStyle}
               />
-              <Form.Control.Feedback type="invalid">
-                {errors.lieuArrive}
-              </Form.Control.Feedback>
+              {errors.lieuArrive && (
+                <div style={errorStyle}>{errors.lieuArrive}</div>
+              )}
             </Form.Group>
           </Col>
         </Row>
 
         <div className="text-center">
-          <Button type="submit" variant="primary">
-            Réservers
+          <Button type="submit" variant="warning w-100" style={buttonStyle}>
+            Réserver
           </Button>
         </div>
       </Form>
     </div>
   );
+};
+
+// Styles personnalisés
+const inputStyle = {
+  padding: "0.5rem",
+  fontSize: "1rem",
+  width: "100%",
+  borderRadius: "5px",
+  border: "1px solid #ccc",
+  boxSizing: "border-box",
+  marginBottom: "10px",
+};
+
+const errorStyle = {
+  color: "red",
+  fontSize: "0.9rem",
+  marginTop: "5px",
+};
+
+const buttonStyle = {
+  padding: "0.75rem 2rem",
+  fontSize: "1.1rem",
 };
 
 export default ReservationForm;

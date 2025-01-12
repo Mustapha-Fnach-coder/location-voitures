@@ -36,10 +36,16 @@ const Header = () => {
             <Link to="/contact" className="nav-link text-dark">
               Contact
             </Link>
+            <Link to="/nous" className="nav-link text-dark">
+              Pour quoi nous
+            </Link>
           </Nav>
 
           {/* Right-side Buttons */}
           <div className="d-flex align-items-center">
+            <Button variant="btn btn-warning" className="me-2">
+              Reserver
+            </Button>
             <Button variant="outline-warning" className="me-2">
               Mes Reservations
             </Button>
