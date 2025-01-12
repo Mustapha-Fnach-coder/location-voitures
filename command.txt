@@ -1,0 +1,5 @@
+npm install react-bootstrap react-icons
+
+npm i react-datepicker
+
+npm i react-icons
