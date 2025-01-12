@@ -50,8 +50,11 @@ const Header = () => {
               Reserver
             </Button>
             <Button variant="outline-warning" className="me-2">
+            <Link to="/MesReservation" className="nav-link text-dark">
               Mes Reservations
+            </Link>
             </Button>
+         
           </div>
         </Navbar.Collapse>
       </Container>

@@ -11,6 +11,10 @@ import ContactUs from './Pages/Client/ContactUs';
 import WhyUs from './Pages/Client/components/nous';
 import Voitures from './Pages/Client/Voitures';
 import CarDetails from './Pages/Client/CarDetails';
+import Sinin from './Auth/Signin';
+import Sinup from './Auth/Signup';
+import FormReservation from './Pages/Client/components/FormReservation';
+import MesReservation from './Pages/Client/MesReservation';
 
 // Optionnel : Importer un middleware pour la gestion des rôles si nécessaire
 // import CheckRole from './Middleware/CheckRole';
@@ -31,7 +35,7 @@ function App() {
             // </CheckRole>
           } 
         />
-         <Route 
+        <Route 
           path="/ContactUs" 
           element={
             // Si vous utilisez un middleware comme CheckRole, décommentez et utilisez-le
@@ -44,7 +48,7 @@ function App() {
           } 
         />
 
-<Route 
+        <Route 
           path="/WhyUs" 
           element={
             // Si vous utilisez un middleware comme CheckRole, décommentez et utilisez-le
@@ -57,7 +61,8 @@ function App() {
           } 
         />
 
-<Route 
+
+        <Route 
           path="/Voitures" 
           element={
             // Si vous utilisez un middleware comme CheckRole, décommentez et utilisez-le
@@ -70,13 +75,51 @@ function App() {
           } 
         />
 
-<Route 
+          <Route 
+          path="/MesReservation" 
+          element={
+            // Si vous utilisez un middleware comme CheckRole, décommentez et utilisez-le
+            // <CheckRole> 
+              <Layout>
+                <FormReservation />
+                <MesReservation />
+                
+              </Layout>
+            // </CheckRole>
+          } 
+        />
+
+        <Route 
           path="/car/:id" 
           element={
             // Si vous utilisez un middleware comme CheckRole, décommentez et utilisez-le
             // <CheckRole> 
               <Layout>
                 <CarDetails />
+              </Layout>
+            // </CheckRole>
+          } 
+        />
+
+        <Route 
+          path="/Sinin" 
+          element={
+            // Si vous utilisez un middleware comme CheckRole, décommentez et utilisez-le
+            // <CheckRole> 
+              <Layout>
+                <Sinin />
+              </Layout>
+            // </CheckRole>
+          } 
+        />
+
+<Route 
+          path="/Sinup" 
+          element={
+            // Si vous utilisez un middleware comme CheckRole, décommentez et utilisez-le
+            // <CheckRole> 
+              <Layout>
+                <Sinup />
               </Layout>
             // </CheckRole>
           } 

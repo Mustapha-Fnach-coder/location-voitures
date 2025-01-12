@@ -1,15 +1,69 @@
-
-/* Assurez-vous que le contenu de la page occupe tout l'espace disponible avant le footer */
-body, html {
-    height: 100%;
-    margin: 0;
-}
-
-.main-container-admin {
-    min-height: 100%; /* S'assure que la section principale prend toute la hauteur disponible */
-    padding-bottom: 80px; /* Réserve de l'espace pour le footer */
-    box-sizing: border-box; /* Inclut le padding dans la hauteur totale */
-}
-
-
-
+/* Footer Principal */
+.footer {
+    background-color: #2c3e50; /* Couleur de fond sombre */
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .footer h5 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #f1c40f; /* Jaune */
+    margin-bottom: 20px;
+  }
+  
+  .footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .footer a:hover {
+    color: #f1c40f; /* Jaune au survol */
+  }
+  
+  .footer .list {
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+  
+  .footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer .row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .footer .column {
+    width: 22%;
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
+  
+  /* Section Footer Bottom */
+  .footer .text-center {
+    margin-top: 40px;
+  }
+  
+  .footer .text-center p {
+    font-size: 14px;
+    color: #95a5a6; /* Gris clair pour le texte du bas */
+  }
+  
+  /* Responsive Design - 1 colonne pour petits écrans */
+  @media (max-width: 768px) {
+    .footer .column {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+  
