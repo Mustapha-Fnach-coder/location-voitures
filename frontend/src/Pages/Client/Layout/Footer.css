@@ -1,3 +1,4 @@
+
 /* Assurez-vous que le contenu de la page occupe tout l'espace disponible avant le footer */
 body, html {
     height: 100%;
@@ -5,12 +6,17 @@ body, html {
 }
 
 .main-container-admin {
-    min-height: calc(100vh - 80px); /* Ajustez la hauteur en fonction de la taille de votre footer */
-    padding-bottom: 80px; /* Réservez de l'espace pour le footer */
+    min-height: 100%; /* S'assure que la section principale prend toute la hauteur disponible */
+    padding-bottom: 80px; /* Réserve de l'espace pour le footer */
+    box-sizing: border-box; /* Inclut le padding dans la hauteur totale */
 }
 
 .footer {
+    height: 80px; /* Hauteur du footer */
     position: relative;
-    bottom: 0;
     width: 100%;
+    bottom: 0;
+    background-color: #f8f9fa; /* Exemple de couleur pour le footer */
+    text-align: center;
+    padding: 20px;
 }

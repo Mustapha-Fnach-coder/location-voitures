@@ -7,7 +7,7 @@ const Footer = () => {
         { path: "/partenaires", label: "Partenaires" },
       ];
   return (
-    <footer className="footer bg-dark text-white pt-4 pb-2 fixed-bottom">
+    <footer className="footer bg-dark text-white pt-4 pb-2 ">
       <div className="container">
         <div className="row">
           {/* Section Hertz.ma */}
@@ -39,7 +39,7 @@ const Footer = () => {
             <h5 className="text-uppercase mb-4">OFFRES ET PRODUITS</h5>
             <ul className="list-unstyled">
               <li><Link to="/vehicules" className="text-white text-decoration-none">Nos véhicules</Link></li>
-              <li><Link to="/vehicules-occasion" className="text-white text-decoration-none">Véhicules d'occasion</Link></li>
+              <li><Link to="/vehicules-occasion" className="text-white text-decoration-none">Véhicules occasion</Link></li>
             </ul>
           </div>
 
