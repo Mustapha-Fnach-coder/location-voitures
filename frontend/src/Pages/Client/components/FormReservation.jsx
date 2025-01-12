@@ -252,7 +252,7 @@ const ReservationForm = () => {
 
         <div className="text-center">
           <Button type="submit" variant="warning w-100" style={buttonStyle}>
-            Réserver
+            Rechercher
           </Button>
         </div>
       </Form>

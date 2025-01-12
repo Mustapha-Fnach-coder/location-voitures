@@ -6,7 +6,8 @@ import HomeClient from './Pages/Client/HomeClient';
 // import About from './Pages/Client/About';   // Nouvelle page 'À propos'
 // import Contact from './Pages/Client/Contact'; // Nouvelle page 'Contact'
 // import Profile from './Pages/Client/Profile'; // Nouvelle page 'Profil'
- import Layout from './Pages/Client/Layout';
+import Layout from './Pages/Client/Layout';
+// import ContactUs from './Pages/Client/ContactUs';
 
 // Optionnel : Importer un middleware pour la gestion des rôles si nécessaire
 // import CheckRole from './Middleware/CheckRole';
@@ -22,11 +23,24 @@ function App() {
             // <CheckRole> 
               <Layout>
                 <HomeClient />
+
               </Layout>
             // </CheckRole>
           } 
         />
-        
+         {/* <Route 
+          path="/ContactUs" 
+          element={
+            // Si vous utilisez un middleware comme CheckRole, décommentez et utilisez-le
+            // <CheckRole> 
+              <Layout>
+                <ContactUs />
+
+              </Layout>
+            // </CheckRole>
+          } 
+        /> */}
+
         {/* <Route 
           path="/about" 
           element={
@@ -35,7 +49,7 @@ function App() {
             </Layout>
           } 
         />
-        
+
         <Route 
           path="/contact" 
           element={
@@ -44,7 +58,7 @@ function App() {
             </Layout>
           } 
         />
-        
+
         <Route 
           path="/voitures" 
           element={
@@ -54,7 +68,7 @@ function App() {
           } 
         />
          */}
-       
+
       </Routes>
     </Router>
   );
