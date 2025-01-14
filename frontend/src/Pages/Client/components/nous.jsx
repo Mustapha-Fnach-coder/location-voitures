@@ -1,4 +1,3 @@
-import React from 'react';
 
 // Définir un tableau d'objets contenant les détails
 const details = [

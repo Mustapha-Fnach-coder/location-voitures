@@ -1,0 +1,93 @@
+/* Conteneur principal */
+.signup-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid #f1c40f;
+  }
+  
+  /* Titre principal */
+  .signup-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Organisation en deux colonnes */
+  .form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .form-column {
+    flex: 1;
+    min-width: 350px;
+  }
+  
+  /* Groupe de formulaire */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #ffffff;
+    transition: border 0.3s ease;
+  }
+  
+  /* Focus et erreurs */
+  .form-input:focus {
+    border-color: #f1c40f;
+    outline: none;
+  }
+  
+  .error-input {
+    border-color: #e74c3c;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Bouton d'inscription */
+  .submit-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #f1c40f;
+    color: #2c3e50;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #d4ac0d;
+    color: #fff;
+  }
+  

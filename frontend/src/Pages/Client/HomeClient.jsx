@@ -8,11 +8,15 @@ export default function HomeClient() {
   return (
     <div className="home-client">
       <ReservationForm/>
+      <ReservationForm id='Form'/>
       <WhyUs/>
       <BestVehicule />
       <PouQoi />
     </div>
 
+
   )
 
 }
+
+
