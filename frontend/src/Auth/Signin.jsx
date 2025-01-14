@@ -1,51 +1,101 @@
 import { useState } from "react";
 import "./Signin.css"; // Créez ce fichier pour les styles
+import axios from "axios";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: "",
+    UserName: "",
     password: "",
   });
-
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
 
+    // Validation des champs
+    if (!formData.UserName || !formData.password) {
+      setError("Nom d'utilisateur et mot de passe requis.");
+      return;
+    }
+    console.log("Données envoyées :", formData);
     try {
-      if (!formData.username || !formData.password) {
-        throw new Error("Tous les champs sont obligatoires.");
-      }
+      // Requête vers l'API
+      const response = await axios.post("http://127.0.0.1:8000/api/login", formData);
+  console.log("Réponse API :", response);
 
-      // Simulation de validation
-      if (formData.username !== "admin" || formData.password !== "1234") {
-        throw new Error("Identifiants incorrects.");
-      }
+  // Stockage des données dans les cookies
+  Cookies.set("token", response.data.token, { secure: true, sameSite: "Strict" });
+  Cookies.set("role", response.data.role, { secure: true, sameSite: "Strict" });
+  Cookies.set("user", JSON.stringify(response.data.user), { secure: true, sameSite: "Strict" });
 
-      alert("Connexion réussie !");
-    } catch (err) {
-      setError(err.message);
+  // Navigation et notification
+  Swal.fire({
+    icon: "success",
+    title: "Connexion réussie",
+    text: "Vous êtes connecté.",
+  });
+
+  switch (response.data.role) {
+    case "user":
+      navigate("/home");
+      break;
+    case "admin":
+      navigate("/dashboard");
+      break;
+    case "superAdmin":
+      navigate("/superDashboard");
+      break;
+    default:
+      navigate("/");
+  }
+
+      // Navigation en fonction du rôle
+      // if (response.data.role === "user") {
+      //   navigate("/home-client");
+      // } else if (response.data.role === "admin") {
+      //   navigate("/dashboard");
+      // } else if (response.data.role === "superAdmin") {
+      //   navigate("/superDashboard");
+      // }
+
+      
+    } catch (error) {
+      // Gestion des erreurs
+      const errorMessage = error.response?.data.message || error.message;
+      setError(errorMessage);
+
+      Swal.fire({
+        icon: "error",
+        title: "Échec de la connexion",
+        text: errorMessage,
+      });
     }
   };
 
   return (
     <div className="signin-container">
       <h2>Connexion</h2>
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleLogin} noValidate>
         {error && <div className="error-message-box">{error}</div>}
 
         <div className="form-group">
           <label>Nom d'utilisateur</label>
           <input
             type="text"
-            name="username"
-            value={formData.username}
+            name="UserName"
+            value={formData.UserName}
             onChange={handleChange}
             className={`form-input ${error ? "error-input" : ""}`}
           />

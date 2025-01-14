@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VehiculeController;
+use App\Http\Controllers\Api\ReservationController;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('ChekRole:user')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('ChekRole:user')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
+
+Route::middleware('ChekRole:user')->group(function () {
+    Route::get('/vehicules', [VehiculeController::class, 'index']);
+    Route::post('/vehicules', [VehiculeController::class, 'store']);
+    Route::get('/vehicules/{vehicule}', [VehiculeController::class, 'show']);
+    Route::put('/vehicules/{vehicule}', [VehiculeController::class, 'update']);
+    Route::delete('/vehicules/{vehicule}', [VehiculeController::class, 'destroy']);
+});
+
+Route::middleware('ChekRole:admin')->group(function () {
+    Route::get('/reservations', [ReservationController::class, 'index']);
+    Route::post('/reservations', [ReservationController::class, 'store']);
+    Route::get('/reservations/{reservation}', [ReservationController::class, 'show']);
+    Route::put('/reservations/{reservation}', [ReservationController::class, 'update']);
+    Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy']);
+});
+

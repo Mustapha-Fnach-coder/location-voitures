@@ -1,60 +1,53 @@
 import { useState } from "react";
-import "./Signup.css"; // Créez ce fichier pour les styles
+import "./Signup.css"; // Fichier CSS à créer pour les styles
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    username: "",
-    NomClient: "",
-    PrenomClient: "",
-    CinClient: "",
-    TelClient: "",
-    DateNaiClient: "",
-    EmailClient: "",
+    UserName: "",
     password: "",
+    password_confirmation: "", // Nouveau champ pour confirmation du mot de passe
   });
 
   const [errors, setErrors] = useState({});
 
+  // Gestion des changements dans les champs
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Validation en direct
+    const error = validateField(name, value);
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
+  };
+
+  // Validation d'un champ
   const validateField = (name, value) => {
     let error = "";
 
     switch (name) {
-      case "username":
-        if (!value.trim()) error = "Le nom d'utilisateur est requis.";
-        break;
-      case "NomClient":
-        if (!value.trim()) error = "Le nom est requis.";
-        break;
-      case "PrenomClient":
-        if (!value.trim()) error = "Le prénom est requis.";
-        break;
-      case "CinClient":
-        if (!/^[A-Za-z0-9]{6,10}$/.test(value))
-          error = "CIN invalide (6-10 caractères alphanumériques).";
-        break;
-      case "TelClient":
-        if (!/^\d{10}$/.test(value)) error = "Numéro de téléphone invalide.";
-        break;
-      case "DateNaiClient":
-        const birthDate = new Date(value);
-        const today = new Date();
-        const age = today.getFullYear() - birthDate.getFullYear();
-        const monthDifference = today.getMonth() - birthDate.getMonth();
-        const dayDifference = today.getDate() - birthDate.getDate();
-        if (
-          age < 18 ||
-          (age === 18 && (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)))
-        ) {
-          error = "Vous devez avoir au moins 18 ans.";
+      case "UserName":
+        if (!value.trim()) {
+          error = "Le nom d'utilisateur est requis.";
         }
         break;
-      case "EmailClient":
-        if (!/\S+@\S+\.\S+/.test(value)) error = "Adresse email invalide.";
-        break;
+
       case "password":
-        if (value.length < 6)
+        if (value.length < 6) {
           error = "Le mot de passe doit contenir au moins 6 caractères.";
+        }
         break;
+
+      case "password_confirmation":
+        if (value !== formData.password) {
+          error = "Les mots de passe ne correspondent pas.";
+        }
+        break;
+
       default:
         break;
     }
@@ -62,136 +55,67 @@ const Signup = () => {
     return error;
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    // Valider le champ en temps réel
-    setErrors({ ...errors, [name]: validateField(name, value) });
-
-    // Mettre à jour les données
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // Validation globale des champs avant soumission
+  const validateForm = () => {
     const newErrors = {};
-
-    // Valider tous les champs
     Object.keys(formData).forEach((key) => {
       const error = validateField(key, formData[key]);
       if (error) newErrors[key] = error;
     });
-
     setErrors(newErrors);
-
-    // Vérifiez s'il y a des erreurs
-    if (Object.keys(newErrors).length === 0) {
-      alert("Inscription réussie !");
-    }
+    return Object.keys(newErrors).length === 0; // Retourne true si aucun erreur
   };
 
-  const fieldLabels = {
-    username: "Nom d'utilisateur",
-    NomClient: "Nom",
-    PrenomClient: "Prénom",
-    CinClient: "CIN",
-    TelClient: "Téléphone",
-    DateNaiClient: "Date de naissance",
-    EmailClient: "Email",
-    password: "Mot de passe",
+  // Gestion de la soumission du formulaire
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+    console.log("Données envoyées :", formData);
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/register", {
+        UserName: formData.UserName,
+        password: formData.password,
+        password_confirmation: formData.password_confirmation, // Ajoutez le champ de confirmation du mot de passe
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Inscription réussie !",
+        text: "Votre compte a été créé avec succès.",
+      });
+
+      navigate("/login"); // Redirection après l'inscription
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Échec de l'inscription",
+        text: error.response?.data.message || "Une erreur est survenue.",
+      });
+    }
   };
 
   return (
     <div className="signup-container">
       <h2>Formulaire d'Inscription</h2>
-      <form onSubmit={handleSubmit} noValidate>
-        <div className="form-container">
-          {/* Colonne 1 */}
-          <div className="form-column">
-            <div className="form-group">
-              <label>Nom d'utilisateur</label>
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                className={`form-input ${errors.username ? "error-input" : ""}`}
-              />
-              {errors.username && (
-                <div className="error-message">{errors.username}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <label>Nom</label>
-              <input
-                type="text"
-                name="NomClient"
-                value={formData.NomClient}
-                onChange={handleChange}
-                className={`form-input ${errors.NomClient ? "error-input" : ""}`}
-              />
-              {errors.NomClient && (
-                <div className="error-message">{errors.NomClient}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <label>CIN</label>
-              <input
-                type="text"
-                name="CinClient"
-                value={formData.CinClient}
-                onChange={handleChange}
-                className={`form-input ${errors.CinClient ? "error-input" : ""}`}
-              />
-              {errors.CinClient && (
-                <div className="error-message">{errors.CinClient}</div>
-              )}
-            </div>
-          </div>
-  
-          {/* Colonne 2 */}
-          <div className="form-column">
-            <div className="form-group">
-              <label>Téléphone</label>
-              <input
-                type="text"
-                name="TelClient"
-                value={formData.TelClient}
-                onChange={handleChange}
-                className={`form-input ${errors.TelClient ? "error-input" : ""}`}
-              />
-              {errors.TelClient && (
-                <div className="error-message">{errors.TelClient}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <label>Date de naissance</label>
-              <input
-                type="date"
-                name="DateNaiClient"
-                value={formData.DateNaiClient}
-                onChange={handleChange}
-                className={`form-input ${errors.DateNaiClient ? "error-input" : ""}`}
-              />
-              {errors.DateNaiClient && (
-                <div className="error-message">{errors.DateNaiClient}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                name="EmailClient"
-                value={formData.EmailClient}
-                onChange={handleChange}
-                className={`form-input ${errors.EmailClient ? "error-input" : ""}`}
-              />
-              {errors.EmailClient && (
-                <div className="error-message">{errors.EmailClient}</div>
-              )}
-            </div>
-          </div>
+      <form onSubmit={handleRegister} noValidate>
+        {/* Champ Nom d'utilisateur */}
+        <div className="form-group">
+          <label>Nom d'utilisateur</label>
+          <input
+            type="text"
+            name="UserName"
+            value={formData.UserName}
+            onChange={handleChange}
+            className={`form-input ${errors.UserName ? "error-input" : ""}`}
+          />
+          {errors.UserName && (
+            <div className="error-message">{errors.UserName}</div>
+          )}
         </div>
+
         {/* Champ Mot de passe */}
         <div className="form-group">
           <label>Mot de passe</label>
@@ -206,12 +130,31 @@ const Signup = () => {
             <div className="error-message">{errors.password}</div>
           )}
         </div>
+
+        {/* Champ Confirmation de mot de passe */}
+        <div className="form-group">
+          <label>Confirmez le mot de passe</label>
+          <input
+            type="password"
+            name="password_confirmation"
+            value={formData.password_confirmation}
+            onChange={handleChange}
+            className={`form-input ${
+              errors.password_confirmation ? "error-input" : ""
+            }`}
+          />
+          {errors.password_confirmation && (
+            <div className="error-message">{errors.password_confirmation}</div>
+          )}
+        </div>
+
+        {/* Bouton de soumission */}
         <button type="submit" className="submit-button">
           S'inscrire
         </button>
       </form>
     </div>
   );
-}
+};
 
 export default Signup;

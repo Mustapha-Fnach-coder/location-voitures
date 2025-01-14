@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id('IdUser');
-            $table->string('UserName')->unique();
-            $table->enum('type', [0,1,2,3])->default(0);
-            $table->string('password');
-            $table->rememberToken();
+          // Table: Postes
+          Schema::create('postes', function (Blueprint $table) {
+            $table->id('IdPoste');
+            $table->string('NomPost');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('postes');
     }
 };
